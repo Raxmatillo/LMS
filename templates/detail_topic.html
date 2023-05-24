@@ -1,0 +1,137 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block content %}
+<div class="container-xxl flex-grow-1 container-p-y">
+
+    <div class="col-lg-12 col-md-12 order-1">
+        <div class="card mb-4">
+            <h3 class="card-header">{{topic.title}}</h3>
+            <div class="card-body">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="flush-headingTwo">
+                        <button class="accordion-button collapsed fs-5 border border-primary " type="button"
+                            data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="true"
+                            aria-controls="flush-collapseTwo">
+                            Mavzuga oid maqola
+                        </button>
+                    </h2>
+                    <div id="flush-collapseTwo" class="accordion-collapse collapse show"
+                        aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body">
+                            <div
+                                    class="d-block align-items-start align-items-sm-center">
+                                <div style="">
+                                    {{topic.body|safe}}
+                                </div>
+                                <hr>
+                                <div class="button-wrapper"
+                                     style="display: block">
+                                    {% load pygmentify %}
+                                    {% pygment %}
+                                        {{topic.highlighted|safe}}
+                                    {% endpygment %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {% if topic.video_url %}
+            <div class="card-body pt-0">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="flush-headingThree">
+                        <button class="accordion-button collapsed fs-5 border border-primary " type="button"
+                            data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false"
+                            aria-controls="flush-collapseThree">
+                            Mavzuga oid video
+                        </button>
+                    </h2>
+                    <div id="flush-collapseThree" class="accordion-collapse collapse"
+                        aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body">
+                            <div style="text-align: center;">
+                                <div class="col-lg-12 col-md-12 order-1">
+                                    <iframe class="iframe" src="{{ topic.video_url }}"
+                                        title="YouTube video player" frameborder="0"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                        allowfullscreen>
+                                    </iframe>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            <div class="card-body pt-0">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="flush-headingFour">
+                        <button class="accordion-button collapsed fs-5 border border-primary " type="button"
+                            data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false"
+                            aria-controls="flush-collapseFour">
+                            Mavzuga oid topshiriqlar
+                        </button>
+                    </h2>
+                    <div id="flush-collapseFour" class="accordion-collapse collapse" aria-labelledby="flush-headingFour"
+                        data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body">
+                            <div class="d-flex align-items-start align-items-sm-center gap-4">
+                                <div class="button-wrapper">
+                                    <p>{{topic.tasks | safe}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {% if topic.get_resources %}
+
+            <div class="card-body pt-0">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="flush-headingOne">
+                        <button class="accordion-button collapsed fs-5 border border-primary" type="button"
+                            data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false"
+                            aria-controls="flush-collapseOne">
+                            Mavzuga oid adabiyotlar
+                        </button>
+                    </h2>
+                    <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne"
+                        data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body">
+                            <div class="d-flex align-items-start align-items-sm-center gap-4">
+                                <div class="button-wrapper">
+                                    <ul class="resource_box p-0" style="list-style: none;">
+                                        {% for resource in topic.get_resources %}
+                                        <li style="margin: 5px 0; font-size:18px">
+                                            <div>
+                                                {{ forloop.counter }}.<a href="{{ resource.file.url }}">
+                                                    {{ resource.name }}
+                                                </a>
+                                            </div>
+
+                                        </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+            {% endif %}
+
+        </div>
+
+
+
+    </div>
+</div>
+</div>
+
+{% endblock content %}
